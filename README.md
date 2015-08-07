@@ -9,25 +9,25 @@
 	npm install sync-request
    
 
-2.mobiledev下fis-conf.js的修改
-增加：
+2.mobiledev下fis-conf.js的修改，增加：
 
-fis.config.set("manifest",{
+    fis.config.set("manifest",{
 
-	//要写入的manifest文件名
-    path :"index.manifest",  
+		//要写入的manifest文件名
+	    path :"index.manifest",  
 
-    //所有文件的路径
-    filesPath: "../mobile/", 
+	    //所有文件的路径
+	    filesPath: "../mobile/", 
 
-    //要做离线缓存的页面
-    files :["index.html","modules/truck/index.html","modules/truck/teams.html","modules/truck/drivers.html","modules/truck/organ-setting.html","about.html"],
+	    //要做离线缓存的页面
+	    files :["index.html","modules/truck/index.html","modules/truck/teams.html",
+	    "modules/truck/drivers.html","modules/truck/organ-setting.html","about.html"],
 
-    //一些要特殊补充的内容
-    shim:["modules/truck/index.html?v=1.0"]
-});
+	    //一些要特殊补充的内容
+	    shim:["modules/truck/index.html?v=1.0"]
+	});
 
-3.发布路由的修改，直接复制如下内容替换以前的配置：
+3.mobiledev下fis-conf.js的修改，发布路由的修改，直接复制如下内容替换以前的配置：
 
 	fis.config.set('roadmap.path',[
 
