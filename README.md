@@ -2,8 +2,10 @@
 基于fis的二次开发，根据配置自动生成manifest文件
 
 使用前的配置：
-1.需要安装两个nodejs的模块cheerio、sync-request
+1.需要安装两个nodejs的模块cheerio、sync-request：
+
 	npm install cheerio
+
 	npm install sync-request
    
 
@@ -26,6 +28,7 @@ fis.config.set("manifest",{
 3.发布路由的修改，直接复制如下内容替换以前的配置：
 
 	fis.config.set('roadmap.path',[
+
     {
         reg: /^\/lib\/css\/(.*)/i,
         release: '/lib/css/$1',
@@ -71,4 +74,5 @@ fis.config.set("manifest",{
 ]);
 
 使用命令：
+
 	fis release -d mobile -M 
