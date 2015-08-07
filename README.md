@@ -11,7 +11,9 @@
 
 2.mobiledev下fis-conf.js的修改
 增加：
+
 fis.config.set("manifest",{
+
 	//要写入的manifest文件名
     path :"index.manifest",  
 
