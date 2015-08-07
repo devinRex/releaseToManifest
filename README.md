@@ -77,4 +77,4 @@
 
 使用命令：
 
-	fis release -d mobile -M 
+	fis release -d mobile -p -M 
