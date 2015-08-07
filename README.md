@@ -73,8 +73,9 @@
         release: '/lib/img/$1',
         url : '../img/$1'
     }
-]);
 
+	]);
+	
 使用命令：
 
 	fis release -d mobile -p -M 
