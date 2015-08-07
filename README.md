@@ -1,0 +1,2 @@
+# releaseToManifest
+基于fis的二次开发，根据配置自动生成manifest文件
