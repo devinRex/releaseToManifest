@@ -612,7 +612,7 @@ exports.register = function(commander){
                         for( var i in mfFileCont) {
                             if(mfFileCont.hasOwnProperty(i)) {
                                 mfFileContStr += "\n#" + i.replace(/modules/, "") +"\n";
-                                if(i !== "publicCont" && i !== "index.html"){
+                                if(i !== "publicCont"){
                                     mfFileContStr += i + "\n";
                                 }
                                 if(mfFileCont[i].css.length > 0) {

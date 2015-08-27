@@ -2,6 +2,7 @@
 基于fis的二次开发，根据配置自动生成manifest文件
 
 使用前的配置：
+
 1.需要安装两个nodejs的模块cheerio、sync-request：
 
 	npm install cheerio
