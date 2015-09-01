@@ -633,15 +633,25 @@ exports.register = function(commander){
                                 mfFileContStr += shim[j] + "\n";
                             }
                         }
-                        //读取文件
-                        fs.readFile(manifest,'utf8',function(err,data){
-                            if(err){
-                                return console.log(err);
-                            }
-                            // 按照特征字符获取时间戳
-                            var start = data.indexOf("CACHE MANIFEST");
-                            var end = data.indexOf("CACHE:");
+                        //如果manifest文件不存在
+                        if(manifest === false){
+                            fs.open(t.filePath + t.mfArgs.path,"w",function(e,fd){
+                                if(e) throw e;
+                                var prefix = "CACHE MANIFEST \n#"+new Date().toGMTString()+"\n\n";
+                                // 拼接新的文件内容
 
+                                var newContent = prefix+mfFileContStr+"\nNETWORK: \n*";
+                                console.log(newContent);
+                                //manifest = fis.util.realpath(t.filePath + t.mfArgs.path);
+                                //写入文件
+                                fs.writeFile(t.filePath + t.mfArgs.path, newContent, function(err) {
+                                    if(err) {
+                                        return console.log(err);
+                                    }
+                                    console.log('generate manifest file done');
+                                });
+                            });
+                        } else {
                             // 生成新的时间戳
                             var prefix = "CACHE MANIFEST \n#"+new Date().toGMTString()+"\n\n";
                             // 拼接新的文件内容
@@ -656,7 +666,18 @@ exports.register = function(commander){
                                 }
                                 console.log('generate manifest file done');
                             });
-                        })
+                        }
+                        ////读取文件
+                        //fs.readFile(manifest,'utf8',function(err,data){
+                        //    if(err){
+                        //        return console.log(err);
+                        //    }
+                        //    // 按照特征字符获取时间戳
+                        //    var start = data.indexOf("CACHE MANIFEST");
+                        //    var end = data.indexOf("CACHE:");
+
+
+                        //})
                     }
                 };
                 //createMani.init();
