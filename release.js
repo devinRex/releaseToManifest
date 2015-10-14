@@ -437,7 +437,7 @@ exports.register = function(commander){
                     getCssBg: function (data) {
                         var cssBgReg = /url\(([^\)]*?(?:png|jpg|gif|woff|ttf)[^\)]*)\)/ig;
                         //这里因为g下的RegExp的exec方法会维护lastIndex，暂时没想到使用一个RegExp的方法
-                        var cssExec = /url\(([^\)]*?(?:png|jpg|gif|woff|ttf|svg)[^\)]*)\)/;
+                        var cssExec = /url\(([^\)]*?(?:png|jpg|gif|woff|ttf)[^\)]*)\)/;
                         var results = data.match(cssBgReg);
                         var addImgArr = [];   //存储正则拿到的字体和图片路径（已转成相对根目录的路径）
                         var execRe;
