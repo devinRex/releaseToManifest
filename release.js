@@ -444,10 +444,14 @@ exports.register = function(commander){
                         //console.log(results);
                         if(results != null) {
                             for(var k = 0, kLen = results.length; k < kLen; k++ ) {
+                                //屏蔽base64
+                                if(results[k] && results[k].indexOf("base64") === -1) {
                                     execRe = cssExec.exec(results[k]);
                                     //console.log(execRe);
                                     //css有两个路径，将里面的背景图片路径统一改为lib/img/XXX
                                     execRe && addImgArr.push(execRe[1].replace(/['"]?([^'"]+)['"]?/g, "$1").replace(/\.\.\/img/,"lib/img").replace(/\.\.\/lib/,"lib"));
+                                }
+                                    
                             }
                         }
                         return addImgArr;
@@ -483,7 +487,10 @@ exports.register = function(commander){
                                 bg: []
                             });
                             if(resource[j] && resource[j].attribs[reTypeAttr]) {
-                                mfFileCont[mfFiles[index]][reType].push(resource[j].attribs[reTypeAttr]);
+                                //屏蔽base64
+                                if(!(reType === "img" && resource[j].attribs[reTypeAttr].indexOf("base64") !== -1)){
+                                    mfFileCont[mfFiles[index]][reType].push(resource[j].attribs[reTypeAttr]);
+                                }
                             }
                         }
                         callback && callback();
