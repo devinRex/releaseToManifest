@@ -660,10 +660,10 @@ exports.register = function(commander){
                             });
                         } else {
                             // 生成新的时间戳
-                            var prefix = "CACHE MANIFEST \n#"+new Date().toGMTString()+"\n\n";
+                            var prefix = "CACHE MANIFEST\n#"+new Date().toGMTString()+"\n\n";
                             // 拼接新的文件内容
 
-                            var newContent = prefix+mfFileContStr+"\nNETWORK: \n*";
+                            var newContent = prefix+mfFileContStr+"\nNETWORK:\n*";
                             console.log(newContent);
 
                             //写入文件
