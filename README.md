@@ -25,7 +25,10 @@
 	    "modules/truck/drivers.html","modules/truck/organ-setting.html","about.html"],
 
 	    //一些要特殊补充的内容
-	    shim:["modules/truck/index.html?v=1.0"]
+	    shim:["modules/truck/index.html?v=1.0"],
+
+        //一些要忽略的js文件，不参与打包并且移除页面里的相关引用
+        ignore: ["lib/js/md5.min.js","lib/js/get-sign.js"]
 	});
 
 3.mobiledev下fis-conf.js的修改，发布路由的修改，直接复制如下内容替换以前的配置：

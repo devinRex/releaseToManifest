@@ -346,11 +346,13 @@ exports.register = function(commander){
                     mfFiles: [],     //fis.conf 里manifest配置的参数files
                     mfFileCont: {},  //资源数组
                     publicCont: {},  //公用资源数组
+                    newHtml: {},     //
                     init: function () {
                         var t = this;
                         t.mfArgs = fis.config.get("manifest");
                         t.filePath = t.mfArgs.filesPath;
                         t.mfFiles = t.mfArgs.files;
+                        t.ignore = t.mfArgs.ignore;
                         manifest = fis.util.realpath(t.filePath + t.mfArgs.path);
                         //先拿js、css与页面内的img元素
                         for (var i = 0, len = t.mfFiles.length; i < len; i ++) {
@@ -361,6 +363,32 @@ exports.register = function(commander){
                                     Scripts = $('script'),
                                     Links = $("link"),
                                     Imgs = $("img");
+                                    //console.log($.html());
+                                    /*
+                                    todo 在config里加上ignore选项，添加要移除的js资源文件
+                                    */
+                                    if(t.ignore) {
+                                        for(var  j = 0, jLen = t.ignore.length; j < jLen; j++) {
+                                            Scripts.each( function () {
+                                                if($(this).attr("src") == t.ignore[j]) {
+                                                    $(this).remove();
+                                                    t.newHtml[t.mfFiles[i]] = {
+                                                        fileIndex: i,
+                                                        html: $.html()
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    }
+                                    Scripts = $('script');
+                                    // Scripts.each(function () {
+                                    //     if($(this).attr("src") == "lib/js/md5.min.js" || $(this).attr("src") == "lib/js/get-sign.js"){
+                                    //         $(this).remove();
+                                    //         //console.log($.html());
+                                    //         t.newHtml = $.html();
+                                    //     }
+                                    // });
+                                    
                                 //获取script
                                 t.getResource({
                                     resource: Scripts,
@@ -644,7 +672,7 @@ exports.register = function(commander){
                         if(manifest === false){
                             fs.open(t.filePath + t.mfArgs.path,"w",function(e,fd){
                                 if(e) throw e;
-                                var prefix = "CACHE MANIFEST \n#"+new Date().toGMTString()+"\n\n";
+                                var prefix = "CACHE MANIFEST\n#"+new Date().toGMTString()+"\n\n";
                                 // 拼接新的文件内容
 
                                 var newContent = prefix+mfFileContStr+"\nNETWORK: \n*";
@@ -685,6 +713,25 @@ exports.register = function(commander){
 
 
                         //})
+                        //写新的index.html
+                        //console.log(t.newHtml);
+
+                        for(var j in t.newHtml) {
+                            console.log(j);
+                            fs.writeFile(fis.util.realpath(t.filePath + t.mfFiles[t.newHtml[j].fileIndex] + ""), t.newHtml[j].html, function(err) {
+                            if(err) {
+                                return console.log(err);
+                            }
+                            console.log('remove ignore file done');
+                            });
+                        };
+                        // console.log(fis.util.realpath(t.filePath + t.mfFiles[0] + ""));
+                        // fs.writeFile(fis.util.realpath(t.filePath + t.mfFiles[0] + ""), t.newHtml, function(err) {
+                        //         if(err) {
+                        //             return console.log(err);
+                        //         }
+                        //         console.log('generate manifest file done');
+                        //     });
                     }
                 };
                 //createMani.init();
