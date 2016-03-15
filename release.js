@@ -359,7 +359,8 @@ exports.register = function(commander){
                             (function (i) {
                                 //.log(fis.util.realpath(t.filePath + t.mfFiles[i]));
                                 var data = fs.readFileSync(fis.util.realpath(t.filePath + t.mfFiles[i] + ""), 'utf8');
-                                var $ = cheerio.load(data),
+                                // console.log(data);
+                                var $ = cheerio.load(data,{decodeEntities: false}),
                                     Scripts = $('script'),
                                     Links = $("link"),
                                     Imgs = $("img");
