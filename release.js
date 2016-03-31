@@ -203,6 +203,7 @@ exports.register = function(commander){
         .option('--verbose', 'enable verbose output', Boolean, false)
         //.option('-M, --manifest <file>', 'generate manifest file')
         .option('-M, --manifest', 'generate manifest file')
+        .option('--ignore', 'ignore some js files')
         .action(function(){
 
             var options = arguments[arguments.length - 1];
@@ -368,7 +369,7 @@ exports.register = function(commander){
                                     /*
                                     todo 在config里加上ignore选项，添加要移除的js资源文件
                                     */
-                                    if(t.ignore) {
+                                    if(options.ignore && t.ignore) {
                                         for(var  j = 0, jLen = t.ignore.length; j < jLen; j++) {
                                             Scripts.each( function () {
                                                 if($(this).attr("src") == t.ignore[j]) {
@@ -719,13 +720,20 @@ exports.register = function(commander){
 
                         for(var j in t.newHtml) {
                             console.log(j);
+                            /*todo 删除额外的文件*/
                             fs.writeFile(fis.util.realpath(t.filePath + t.mfFiles[t.newHtml[j].fileIndex] + ""), t.newHtml[j].html, function(err) {
                             if(err) {
                                 return console.log(err);
                             }
-                            console.log('remove ignore file done');
+                            console.log('remove ignore quote done');
                             });
+                            
                         };
+                        for(var k = 0; k < t.ignore.length; k++) {
+                            fs.unlink(fis.util.realpath(t.filePath+t.ignore[k]), function () {
+                                //console.log("remove ignore file done");
+                            });
+                        }
                         // console.log(fis.util.realpath(t.filePath + t.mfFiles[0] + ""));
                         // fs.writeFile(fis.util.realpath(t.filePath + t.mfFiles[0] + ""), t.newHtml, function(err) {
                         //         if(err) {
