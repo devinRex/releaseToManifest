@@ -1,4 +1,5 @@
 # releaseToManifest
+(业务定制程度较高，不推荐使用)
 基于fis的二次开发，根据配置自动生成manifest文件
 
 使用前的配置：
